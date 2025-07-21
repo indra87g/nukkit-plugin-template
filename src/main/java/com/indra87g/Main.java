@@ -1,3 +1,4 @@
+
 package com.indra87g;
 
 import cn.nukkit.block.Block;
@@ -12,23 +13,41 @@ public class Main extends PluginBase {
 
     @Override
     public void onEnable() {
-        getLogger().info("Plugin aktif!");
+        getLogger().info("[PluginTemplate] plugin activated!");
+
         this.getServer().getCommandMap().register("setblock", new Command("setblock") {
             @Override
             public boolean execute(CommandSender sender, String label, String[] args) {
-                if (!(sender instanceof Player)) return false;
+                if (!(sender instanceof Player)) {
+                    sender.sendMessage("Perintah ini hanya bisa digunakan oleh pemain.");
+                    return false;
+}
 
                 Player player = (Player) sender;
                 Level level = player.getLevel();
 
-                // Contoh koordinat dan jenis block
-                Vector3 pos = new Vector3(100, 65, 100); // X, Y, Z
-                Block block = Block.get(Block.STONE); // Ganti dengan jenis block lain jika perlu
+                if (args.length!= 4) {
+                    player.sendMessage("§cPenggunaan: /setblock <x> <y> <z> <block_id>");
+                    return false;
+}
 
-                level.setBlock(pos, block);
-                player.sendMessage("Block berhasil ditempatkan di " + pos.toString());
+                try {
+                    int x = Integer.parseInt(args[0]);
+                    int y = Integer.parseInt(args[1]);
+                    int z = Integer.parseInt(args[2]);
+                    int blockId = Integer.parseInt(args[3]);
+
+                    Vector3 pos = new Vector3(x, y, z);
+                    Block block = Block.get(blockId);
+
+                    level.setBlock(pos, block);
+                    player.sendMessage("§aBlock " + block.getName() + " berhasil ditempatkan di (" + x + ", " + y + ", " + z + ")");
+} catch (NumberFormatException e) {
+                    player.sendMessage("§cPastikan semua argumen berupa angka yang valid.");
+}
+
                 return true;
 }
 });
 }
-            }
+                        }
