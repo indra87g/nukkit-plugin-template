@@ -1,0 +1,37 @@
+name: Build Nukkit Plugin
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout kode
+      uses: actions/checkout@v4
+
+    - name: Setup JDK
+      uses: actions/setup-java@v4
+      with:
+        distribution: 'temurin'
+        java-version: '20'
+
+    - name: Cache Gradle
+      uses: actions/cache@v3
+      with:
+        path: |
+          ~/.gradle/caches
+          ~/.gradle/wrapper
+        key: gradle-${{ runner.os}}-${{ hashFiles('**/*.gradle*', '**/gradle-wrapper.properties')}}
+
+    - name: Build dengan Gradle
+      run: ./gradlew build
+
+    - name: Upload Plugin JAR
+      uses: actions/upload-artifact@v4
+      with:
+        name: NukkitPlugin
+        path: build/libs/*.jar
