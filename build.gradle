@@ -2,8 +2,8 @@ plugins {
     id 'java'
 }
 
-group = 'com.contoh'
-version = '1.0.0'
+group = 'com.indra87g'
+version = '0.1.0'
 
 repositories {
     mavenCentral()
@@ -11,7 +11,7 @@ repositories {
 }
 
 dependencies {
-    implementation 'cn.nukkit:nukkit:1.0-SNAPSHOT' // Versi dapat diganti sesuai server
+    implementation 'cn.nukkit:nukkit:0.1-SNAPSHOT' // Versi dapat diganti sesuai server
 }
 
 java {
@@ -23,7 +23,7 @@ java {
 jar {
     manifest {
         attributes(
-            'Main-Class': 'com.contoh.Main' // Ganti sesuai nama class utama
+            'Main-Class': 'com.indra87g.Main' // Ganti sesuai nama class utama
 )
 }
     archiveFileName = "${project.name}-${project.version}.jar"
