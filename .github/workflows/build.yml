@@ -17,6 +17,9 @@ jobs:
         distribution: 'temurin'
         java-version: '20'
 
+    - name: Generate Gradle Wrapper (fallback jika belum ada)
+      run: gradle wrapper
+
     - name: Cache Gradle
       uses: actions/cache@v3
       with:
@@ -25,7 +28,10 @@ jobs:
           ~/.gradle/wrapper
         key: gradle-${{ runner.os}}-${{ hashFiles('**/*.gradle*', '**/gradle-wrapper.properties')}}
 
-    - name: Build dengan Gradle
+    - name: Memberi permission pada gradlew
+      run: chmod +x gradlew
+
+    - name: Build dengan Gradle Wrapper
       run: ./gradlew build
 
     - name: Upload Plugin JAR
