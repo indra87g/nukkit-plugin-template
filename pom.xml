@@ -32,6 +32,7 @@
       <groupId>cn.nukkit</groupId>
       <artifactId>nukkit</artifactId>
       <version>0.1-SNAPSHOT</version>
+      <scope>provided</scope>
     </dependency>
   </dependencies>
 
