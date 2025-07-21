@@ -2,6 +2,14 @@ plugins {
     id 'java'
 }
 
+sourceSets {
+    main {
+        resources {
+            srcDirs = ['src/main/resources']
+        }
+    }
+}
+
 group = 'com.indra87g'
 version = '0.1.0'
 
@@ -11,12 +19,12 @@ repositories {
 }
 
 dependencies {
-    implementation 'cn.nukkit:nukkit:0.1-SNAPSHOT' // Versi dapat diganti sesuai server
+    implementation 'com.github.CloudburstMC:Nukkit:master-SNAPSHOT' // Versi dapat diganti sesuai server
 }
 
 java {
     toolchain {
-        languageVersion = JavaLanguageVersion.of(17)
+        languageVersion = JavaLanguageVersion.of(20)
 }
 }
 
