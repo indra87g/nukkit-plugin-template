@@ -19,7 +19,7 @@ repositories {
 }
 
 dependencies {
-    implementation 'com.github.CloudburstMC:Nukkit:master-SNAPSHOT' // Versi dapat diganti sesuai server
+    implementation 'cn.nukkit:nukkit:0.1-SNAPSHOT' // Versi dapat diganti sesuai server
 }
 
 java {
