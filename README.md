@@ -1,0 +1,1 @@
+# Nukkit Plugin Template
