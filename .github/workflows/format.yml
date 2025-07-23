@@ -1,23 +1,16 @@
-name: Format Java Code
+name: Format Code
 
 on:
-  push:
-    branches:
-      - main
+  workflow_dispatch:
 
 jobs:
-  format-code:
+
+  formatting:
     runs-on: ubuntu-latest
-
     steps:
-    - name: Checkout Repository
-      uses: actions/checkout@v3
-
-    - name: Prettier Java Format
-      uses: tsar-boomba/prettier-java-format-action@main
-      with:
-        prettier-args: '--tab-width 4  --write'  # See: https://prettier.io/docs/en/options.html
-        files: '**/**/**/**/**/*.java'
-        commit: 'true'
-        github-username: 'github-actions'
-        commit-message: 'format the code'
+      - uses: actions/checkout@v4
+      - uses: ryanbascom/googlejavaformat@v4
+        with:
+          args: "--skip-sorting-imports --replace"
+          # Recommended if you use MacOS:
+          # github-token: ${{ secrets.GITHUB_TOKEN }}
