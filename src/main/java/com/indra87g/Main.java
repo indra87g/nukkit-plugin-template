@@ -1,4 +1,3 @@
-
 package com.indra87g;
 
 import cn.nukkit.block.Block;
@@ -13,23 +12,23 @@ public class Main extends PluginBase {
 
     @Override
     public void onEnable() {
-        getLogger().info("[PluginTemplate] plugin activated!");
+        getLogger().info("plugin activated!");
 
         this.getServer().getCommandMap().register("setblock", new Command("setblock") {
             @Override
             public boolean execute(CommandSender sender, String label, String[] args) {
                 if (!(sender instanceof Player)) {
-                    sender.sendMessage("Perintah ini hanya bisa digunakan oleh pemain.");
+                    sender.sendMessage("This command can only be used by player.");
                     return false;
-}
+                }
 
                 Player player = (Player) sender;
                 Level level = player.getLevel();
 
-                if (args.length!= 4) {
-                    player.sendMessage("§cPenggunaan: /setblock <x> <y> <z> <block_id>");
+                if (args.length != 4) {
+                    player.sendMessage("§cusage: /setblock <x> <y> <z> <block_id>");
                     return false;
-}
+                }
 
                 try {
                     int x = Integer.parseInt(args[0]);
@@ -41,13 +40,13 @@ public class Main extends PluginBase {
                     Block block = Block.get(blockId);
 
                     level.setBlock(pos, block);
-                    player.sendMessage("§aBlock " + block.getName() + " berhasil ditempatkan di (" + x + ", " + y + ", " + z + ")");
-} catch (NumberFormatException e) {
-                    player.sendMessage("§cPastikan semua argumen berupa angka yang valid.");
-}
+                    player.sendMessage("§aBlock " + block.getName() + " successfully placed in  (" + x + ", " + y + ", " + z + ")");
+                } catch (NumberFormatException e) {
+                    player.sendMessage("§cMake sure all arguments are valid numbers. ");
+                }
 
                 return true;
+            }
+        });
+    }
 }
-});
-}
-                        }
