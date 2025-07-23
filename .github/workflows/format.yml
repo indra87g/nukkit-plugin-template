@@ -1,14 +1,23 @@
-name: Format
+name: Format Java Code
 
 on:
-  workflow_dispatch:
+  push:
+    branches:
+      - main
 
 jobs:
-
-  formatting:
+  format-code:
     runs-on: ubuntu-latest
+
     steps:
-      - uses: actions/checkout@v4
-      - uses: axel-op/googlejavaformat-action@v4
-        with:
-          args: "--skip-sorting-imports --replace"
+    - name: Checkout Repository
+      uses: actions/checkout@v3
+
+    - name: Prettier Java Format
+      uses: tsar-boomba/prettier-java-format-action@main
+      with:
+        prettier-args: '--tab-width 4  --write'  # See: https://prettier.io/docs/en/options.html
+        files: '**/**/**/**/**/*.java'
+        commit: 'true'
+        github-username: 'github-actions'
+        commit-message: 'format the code'
