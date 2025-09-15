@@ -1,0 +1,4 @@
+# Configuration file for ContohPlugin
+
+# The message to send to players when they join the server.
+welcome-message: "Welcome to the server, {player}!"

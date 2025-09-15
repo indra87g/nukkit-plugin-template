@@ -1,35 +1,50 @@
-name: Build Nukkit Plugin
+name: Build and Release
 
 on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
   workflow_dispatch:
 
 jobs:
   build:
     runs-on: ubuntu-latest
-
     steps:
-    - name: Checkout kode
-      uses: actions/checkout@v4
+      - name: Checkout code
+        uses: actions/checkout@v4
 
-    - name: Setup JDK
-      uses: actions/setup-java@v4
-      with:
-        distribution: 'temurin'
-        java-version: '20' # Ganti dengan versi Java sesuai kebutuhan plugin kamu
+      - name: Set up JDK 8
+        uses: actions/setup-java@v4
+        with:
+          java-version: '8'
+          distribution: 'temurin'
+          cache: maven
 
-    - name: Cache Maven
-      uses: actions/cache@v3
-      with:
-        path: ~/.m2
-        key: maven-${{ runner.os}}-${{ hashFiles('**/pom.xml')}}
-        restore-keys: |
-          maven-${{ runner.os}}
+      - name: Build with Maven
+        run: mvn -B package --file pom.xml
 
-    - name: Build plugin dengan Maven
-      run: mvn clean package
+      - name: Upload artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: ContohPlugin
+          path: target/*.jar
 
-    - name: Upload Plugin JAR
-      uses: actions/upload-artifact@v4
-      with:
-        name: NukkitPlugin
-        path: target/*.jar
+  release:
+    needs: build
+    if: startsWith(github.ref, 'refs/tags/')
+    runs-on: ubuntu-latest
+    steps:
+      - name: Download artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: ContohPlugin
+
+      - name: Create release
+        uses: softprops/action-gh-release@v1
+        with:
+          files: "*.jar"
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

@@ -1,5 +1,5 @@
 name: ContohPlugin
-main: com.indra87g.Main
+main: com.indra87g.plugin.Main
 version: 0.1.0
 api: 1.0.0
 author: indra87g
