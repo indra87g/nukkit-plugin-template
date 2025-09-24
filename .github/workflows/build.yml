@@ -8,14 +8,14 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Checkout kode
+    - name: Checkout code
       uses: actions/checkout@v4
 
     - name: Setup JDK
       uses: actions/setup-java@v4
       with:
         distribution: 'temurin'
-        java-version: '20' # Ganti dengan versi Java sesuai kebutuhan plugin kamu
+        java-version: '8'
 
     - name: Cache Maven
       uses: actions/cache@v3
